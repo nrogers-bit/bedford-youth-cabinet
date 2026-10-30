@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bedford Youth Cabinet</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Comic Sans MS', 'Marker Felt', cursive, sans-serif;
+            background: linear-gradient(135deg, #fff8dc 0%, #ffe4b5 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Paper texture background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 20% 50%, rgba(255,182,193,0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(173,216,230,0.1) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        /* Torn paper edge effect */
+        header {
+            background: linear-gradient(45deg, #ff6b6b, #feca57);
+            padding: 40px 20px;
+            text-align: center;
+            position: relative;
+            margin: 20px;
+            border-radius: 10px;
+            box-shadow: 5px 5px 15px rgba(0,0,0,0.2);
+            transform: rotate(-1deg);
+        }
+
+        header h1 {
+            color: white;
+            font-size: 3em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            margin-bottom: 10px;
+        }
+
+        header p {
+            color: #fff;
+            font-size: 1.2em;
+            font-style: italic;
+        }
+
+        /* Navigation */
+        nav {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin: 30px 20px;
+        }
+
+        nav a {
+            background: white;
+            padding: 12px 25px;
+            border-radius: 25px;
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+            border: 3px solid #333;
+            transition: all 0.3s;
+            display: inline-block;
+            transform: rotate(2deg);
+            box-shadow: 3px 3px 10px rgba(0,0,0,0.1);
+        }
+
+        nav a:nth-child(2) {
+            transform: rotate(-2deg);
+            background: #b3e5fc;
+        }
+
+        nav a:nth-child(3) {
+            transform: rotate(1deg);
+            background: #c8e6c9;
+        }
+
+        nav a:nth-child(4) {
+            transform: rotate(-1deg);
+            background: #f8bbd0;
+        }
+
+        nav a:hover {
+            transform: rotate(0) scale(1.1);
+            box-shadow: 5px 5px 15px rgba(0,0,0,0.2);
+        }
+
+        /* Content sections */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        section {
+            background: white;
+            margin: 30px 0;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 8px 8px 20px rgba(0,0,0,0.15);
+            position: relative;
+            transform: rotate(-0.5deg);
+        }
+
+        section:nth-child(even) {
+            transform: rotate(0.5deg);
+        }
+
+        section h2 {
+            color: #ff6b6b;
+            font-size: 2.2em;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        section h2::before {
+            content: '';
+            position: absolute;
+            left: -30px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 20px;
+            height: 20px;
+            background: #feca57;
+            border-radius: 50%;
+        }
+
+        section p {
+            color: #333;
+            line-height: 1.8;
+            font-size: 1.1em;
+            margin-bottom: 15px;
+        }
+
+        /* Paper note style */
+        .note {
+            background: #fffacd;
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 5px solid #ff6b6b;
+            border-radius: 5px;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
+            font-style: italic;
+            color: #555;
+        }
+
+        /* Card grid */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin: 30px 0;
+        }
+
+        .card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            color: white;
+            transform: rotate(-3deg);
+            box-shadow: 5px 5px 15px rgba(0,0,0,0.2);
+            transition: all 0.3s;
+        }
+
+        .card:nth-child(2) {
+            transform: rotate(2deg);
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+
+        .card:nth-child(3) {
+            transform: rotate(-1deg);
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+
+        .card h3 {
+            font-size: 1.8em;
+            margin-bottom: 15px;
+        }
+
+        .card p {
+            color: #f0f0f0;
+            margin-bottom: 0;
+        }
+
+        .card:hover {
+            transform: rotate(0) scale(1.05);
+            box-shadow: 8px 8px 25px rgba(0,0,0,0.3);
+        }
+
+        /* Decorative elements */
+        .sticker {
+            position: absolute;
+            font-size: 3em;
+            opacity: 0.6;
+        }
+
+        .sticker1 { top: 20px; right: 30px; transform: rotate(15deg); }
+        .sticker2 { bottom: 40px; left: 20px; transform: rotate(-20deg); }
+        .sticker3 { top: 50%; right: 40px; transform: rotate(10deg); }
+
+        /* Footer */
+        footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 30px;
+            margin-top: 50px;
+        }
+
+        footer p {
+            margin: 10px 0;
+            color: #ddd;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2em;
+            }
+
+            nav {
+                flex-direction: column;
+            }
+
+            section {
+                padding: 20px;
+            }
+
+            .card-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Animated tape */
+        @keyframes sway {
+            0%, 100% { transform: rotate(-1deg); }
+            50% { transform: rotate(1deg); }
+        }
+
+        header {
+            animation: sway 3s infinite ease-in-out;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>✂️ Bedford Youth Cabinet ✂️</h1>
+        <p>Making a difference, one voice at a time</p>
+    </header>
+
+    <nav>
+        <a href="#about">About</a>
+        <a href="#what-we-do">What We Do</a>
+        <a href="#events">Events</a>
+        <a href="#join">Join Us</a>
+        <a href="#contact">Contact</a>
+    </nav>
+
+    <div class="container">
+        <!-- About Section -->
+        <section id="about">
+            <span class="sticker sticker1">🎨</span>
+            <h2>About Us</h2>
+            <p>The Bedford Youth Cabinet is a platform for young people to have their voices heard. We're here to bring fresh perspectives, bold ideas, and real change to our community.</p>
+            <div class="note">
+                💡 Founded on the belief that youth voices matter
+            </div>
+        </section>
+
+        <!-- What We Do -->
+        <section id="what-we-do">
+            <span class="sticker sticker2">🚀</span>
+            <h2>What We Do</h2>
+            
+            <div class="card-grid">
+                <div class="card">
+                    <h3>🗣️</h3>
+                    <h3>Advocate</h3>
+                    <p>Fight for issues that matter to young people</p>
+                </div>
+                <div class="card">
+                    <h3>🤝</h3>
+                    <h3>Connect</h3>
+                    <p>Build community and share ideas</p>
+                </div>
+                <div class="card">
+                    <h3>🎯</h3>
+                    <h3>Create</h3>
+                    <p>Turn ideas into real action & events</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Events -->
+        <section id="events">
+            <span class="sticker sticker3">📅</span>
+            <h2>Upcoming Events</h2>
+            <p><strong>Monthly Meetings:</strong> Every 2nd Thursday at 6:30 PM</p>
+            <p><strong>Youth Forum:</strong> Quarterly discussions on community topics</p>
+            <p><strong>Social Events:</strong> Regular meetups and team-building activities</p>
+            <div class="note">
+                📌 Check back soon for specific dates and registration!
+            </div>
+        </section>
+
+        <!-- Join Section -->
+        <section id="join">
+            <h2>Ready to Join?</h2>
+            <p>We're looking for passionate young people aged 13-25 who want to make a difference in Bedford. No experience necessary—just bring your ideas and enthusiasm!</p>
+            <p><strong>What you'll get:</strong></p>
+            <ul style="margin-left: 20px; line-height: 2;">
+                <li>✨ A platform to share your ideas</li>
+                <li>🎓 Leadership and communication skills</li>
+                <li>👥 A community of like-minded young people</li>
+                <li>🌟 Real impact on local decision-making</li>
+            </ul>
+        </section>
+
+        <!-- Contact -->
+        <section id="contact">
+            <h2>Get In Touch</h2>
+            <p><strong>Email:</strong> info@bedfordyouthcabinet.org</p>
+            <p><strong>Phone:</strong> 01234 XXXXX</p>
+            <p><strong>Follow Us:</strong></p>
+            <p>📱 Instagram | 🐦 X </p>
+        </section>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Bedford Youth Cabinet</p>
+        <p>Made with ✂️ and 📄 by young people, for young people</p>
+    </footer>
+</body>
+</html>
